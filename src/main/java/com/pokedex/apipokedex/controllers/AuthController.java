@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")  // URL: /api/auth/login, /api/auth/register
 @RequiredArgsConstructor
 public class AuthController {
 

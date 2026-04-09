@@ -1,5 +1,6 @@
 package com.pokedex.apipokedex.entities;
 //paquetes importados
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -30,5 +31,6 @@ public class Tipo {
     private String nombre;
     //Relaciones
     @ManyToMany(mappedBy = "tipos") // "Ya está todo configurado en la lista 'tipos' de la clase Pokemon"
+    @JsonIgnore // Evitar la serialización para prevenir problemas de referencia circular
     private List<Pokemon> pokemons;
 }

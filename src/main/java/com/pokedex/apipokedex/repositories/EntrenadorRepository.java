@@ -16,7 +16,7 @@ import java.util.List;
 public interface EntrenadorRepository extends JpaRepository<Entrenador, Long> {
     //CONSULTAS CON QUERY
     // Como la consulta empieza mirando la tabla 'Entrenador', va aquí.
-    @Query("SELECT new com.pokedex.apipokedex.dto.EntrenadorYNumPokemonDTO(e.nombre, SIZE(e.equipo)) FROM Entrenador e")
+    @Query("SELECT new com.pokedex.apipokedex.dto.EntrenadorYNumPokemonDTO(e.nombre, CAST(SIZE(e.equipo) AS long)) FROM Entrenador e")
     Page<EntrenadorYNumPokemonDTO> obtenerNumPokemonEntrenador(Pageable pageable);
 // ^^^ Fíjate que devuelva Page, no List, para que funcione el controlador.
 }

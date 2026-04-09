@@ -37,6 +37,7 @@ public class Pokemon {
     @Column(unique = true)
     @NotNull(message = "El número de la pokedex es obligatorio")
     private Long numPokedex;
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
     private Long nivel;;
     //Relaciones entre tablas

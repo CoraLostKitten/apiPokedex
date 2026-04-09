@@ -1,5 +1,6 @@
 package com.pokedex.apipokedex.entities;
 //paquetes importados
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Usuario implements UserDetails {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     private LocalDate fechaRegistro;
@@ -45,12 +47,19 @@ public class Usuario implements UserDetails {
         // Convierte los roles de String a GrantedAuthority
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        for (String role : roles.split(",")) {
-            authorities.add(new SimpleGrantedAuthority(role));
+        // Protege contra roles null o vacío
+        if (roles != null && !roles.isEmpty()) {
+            for (String role : roles.split(",")) {
+                authorities.add(new SimpleGrantedAuthority(role.trim()));
+            }
+        } else {
+            // Por defecto, asignar ROLE_USER si no hay roles
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
         return authorities;
     }
+
 
     @Override
     public String getUsername() {
